@@ -461,11 +461,12 @@ module Nexpose
     # @return [ScanTemplate] The requested scan template configuration.
     #
     def self.load(nsc, id = nil)
+      require 'pry'; binding.pry
       if id
         response = JSON.parse(AJAX.get(nsc, "/data/scan/templates/#{URI.encode(id)}"))
         xml = response['value']
       else
-        xml = AJAX.get(nsc, '/ajax/scantemplate_config.txml')
+        xml = AJAX.get(nsc, '/data/scan/templates/config')
       end
       new(xml)
     end
